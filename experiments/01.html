@@ -5,6 +5,7 @@
     <script canvas="01" type="text/paperscript">
       var paths = [];
       var maxItems = 25;
+      var paused = false;
 
       function rand(min, max) {
         return Math.max(min, Math.random() * max);
@@ -37,6 +38,9 @@
       }
 
       function onFrame(event) {
+        if (paused) {
+          return;
+        }
         for (var i = 0; i < paths.length; i++) {
           var path = paths[i];
           if (path.strokeColor.alpha < 0.5) {
@@ -49,6 +53,10 @@
             paths.push(createPath());
           }
         }
+      }
+
+      function onMouseUp(event) {
+        paused = !paused;
       }
     </script>
     <style>
