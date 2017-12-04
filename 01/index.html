@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <title>Visual Experiments: 01</title>
+    <script src="../node_modules/paper/dist/paper-full.js"></script>
+    <script canvas="01" type="text/paperscript">
+      var paths = [];
+      var maxItems = 25;
+
+      function rand(min, max) {
+        return Math.max(min, Math.random() * max);
+      }
+
+      function createPath() {
+        var path = new Path();
+        var color = new Color({
+          hue: rand(0, 360),
+          saturation: 50 + rand(0, 25),
+          lightness: 50 + rand(0, 25),
+          alpha: 0
+        });
+
+        path.strokeColor = color;
+        path.strokeWidth = rand(1, view.size.width);
+
+        var start = new Point(view.size.width, view.size.height) * Point.random();
+        var end = new Point(view.size.width, view.size.height) * Point.random();
+
+        path.moveTo(start);
+        path.lineTo(end);
+        path.fitBounds(view.bounds, true);
+
+        return path;
+      }
+
+      for (var i = 0; i < maxItems; i++) {
+        paths.push(createPath());
+      }
+
+      function onFrame(event) {
+        for (var i = 0; i < paths.length; i++) {
+          var path = paths[i];
+          if (path.strokeColor.alpha < 0.5) {
+            path.strokeColor.alpha += 0.01;
+          }
+          path.strokeWidth -= 1;
+          if (path.strokeWidth < 1) {
+            path.remove();
+            paths.splice(i, 1);
+            paths.push(createPath());
+          }
+        }
+      }
+    </script>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      canvas[resize] {
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="01" resize="true"></canvas>
+  </body>
+</html>

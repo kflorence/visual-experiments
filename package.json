@@ -1,0 +1,18 @@
+{
+  "name": "visual-experiments",
+  "version": "1.0.0",
+  "description": "experimentation",
+  "main": "index.html",
+  "dependencies": {
+    "paper": "^0.11.5"
+  },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
+  },
+  "scripts": {
+    "deploy": "install && gh-pages",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyle Florence <kyle.florence@gmail.com>",
+  "license": "ISC"
+}
